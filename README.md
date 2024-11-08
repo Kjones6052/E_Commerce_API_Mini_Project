@@ -15,3 +15,6 @@ MySQL Connector Python
 List of files included in this repository:
 README.md - includes instructions and information about the designed use of the code contained
 project_instructions.txt - copy of the project instructions with a status of COMPLETE or Incomplete
+app.py - contains the routes and methods used to exchange data with the database
+models.py - contains the database table models
+schema.py - contains the table schemas used for the data validation
