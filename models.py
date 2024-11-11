@@ -4,8 +4,15 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
-app = Flask(__name__) # Instantiating Flask App
+
+# Instantiating Flask App
+app = Flask(__name__) 
+
+# Configure SQLAlchemy to connect to database using connection parameteres
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:7Raffi!Codes7@localhost/e_commerce_db'
+
 db = SQLAlchemy(app) # Gives full access to SQL database functionality
+
 
 # Customer Model (id, name, email, and phone number)
 class Customer(db.Model):
@@ -31,9 +38,10 @@ class Order(db.Model):
     id = db.Column(db.Integer, primary_key=True) # Creating id as the primary key for table
     date = db.Column(db.Date, nullable=False) # Creating date column for table
     customer_id = db.Column(db.Integer, db.ForeignKey('Customers.id')) # Creating customer id as a foreign key column for table
+    status = db.Column(db.String(20), nullable=False) # Creating order status column for table
    
 # Many to Many relationship products/orders
-order_product = db.Table('Order_Product',
+order_details = db.Table('Order_Details',
                          db.Column('order_id', db.Integer, db.ForeignKey('Orders.id'), primary_key=True),
                          db.Column('product_id', db.Integer, db.ForeignKey('Products.id'), primary_key=True)
                          )
@@ -44,6 +52,7 @@ class Product(db.Model):
     id = db.Column(db.Integer, primary_key=True) # Creating id as the primary key for table
     name = db.Column(db.String(255), nullable=False) # Creating name column for table
     price = db.Column(db.Float, nullable=False) # Creating price column for table
-    orders = db.relationship('Order', secondary=order_product, backref=db.backref('products')) # Creating relationship between Products and Order
-
+    quantity = db.Column(db.Integer, nullable=False) # Creating quantity column for table
+    orders = db.relationship('Order', secondary=order_details, backref=db.backref('products')) # Creating relationship between Products and Order
+    
 

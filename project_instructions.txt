@@ -33,8 +33,8 @@ Create an endpoint for updating customer account information, including the user
 Delete CustomerAccount: COMPLETE
 Develop an endpoint to delete a customer account.
 
-Task 2: Incomplete
-Product Catalog: Incomplete
+Task 2: COMPLETE
+Product Catalog: COMPLETE
 Create the CRUD (Create, Read, Update, Delete) endpoints for managing Products:
 
 Create Product: COMPLETE
@@ -53,16 +53,16 @@ Implement an endpoint to delete a product from the system based on its unique ID
 List Products: COMPLETE
 Develop an endpoint to list all available products in the e-commerce platform. Ensure that the list provides essential product information.
 
-View and Manage Product Stock Levels (Bonus): Incomplete
+View and Manage Product Stock Levels (Bonus): COMPLETE
 Create an endpoint that allows to view and manage the stock levels of each product in the catalog. Administrators should be able to see the 
 current stock level and make adjustments as needed.
 
-Restock Products When Low (Bonus): Incomplete
+Restock Products When Low (Bonus): COMPLETE
 Develop an endpoint that monitors product stock levels and triggers restocking when they fall below a specified threshold. Ensure that stock 
 replenishment is efficient and timely.
 
-Task 3: Incomplete
-Order Processing: Incomplete
+Task 3: COMPLETE
+Order Processing: COMPLETE
 Develop comprehensive Orders Management functionality to efficiently handle customer orders, ensuring that customers can place, track, and manage 
 their orders seamlessly.
 
@@ -74,33 +74,25 @@ Retrieve Order: COMPLETE
 Implement an endpoint that allows customers to retrieve details of a specific order based on its unique identifier (ID). Provide a clear overview 
 of the order, including the order date and associated products.
 
-Track Order: Incomplete
+Track Order: COMPLETE
 Develop functionality that enables customers to track the status and progress of their orders. Customers should be able to access information such 
 as order dates and expected delivery dates.
 
-Manage Order History (Bonus): Incomplete
-Create an endpoint that allows customers to access their order history, listing all previous orders placed. Each order entry should provide 
-comprehensive information, including the order date and associated products.
-
-Cancel Order (Bonus): Incomplete
+Cancel Order (Bonus): COMPLETE
 Implement an order cancellation feature, allowing customers to cancel an order if it hasn't been shipped or completed. Ensure that canceled orders 
 are appropriately reflected in the system.
 
-Calculate Order Total Price (Bonus): Incomplete
-Include an endpoint that calculates the total price of items in a specific order, considering the prices of the products included in the order. 
-This calculation should be specific to each customer and each order, providing accurate pricing information.
-
-Database Integration: Incomplete
+Database Integration: COMPLETE
 Utilize Flask-SQLAlchemy to integrate a MySQL database into the application.
 Design and create the necessary Model to represent customers, orders, products, customer accounts, and any additional features.
 Establish relationships between tables to model the application's core functionality.
 Ensure proper database connections and interactions for data storage and retrieval.
 
-Data Validation and Error Handling: Incomplete
+Data Validation and Error Handling: COMPLETE
 Implement data validation mechanisms to ensure that user inputs meet specified criteria (e.g., valid email addresses, proper formatting).
 Use try, except, else, and finally blocks to handle errors gracefully and provide informative error messages to guide users.
 
-User Interface (Postman): Incomplete
+User Interface (Postman): COMPLETE
 Develop Postman collections that categorize and group API requests according to their functionality. Separate collections for Customer Management, Product Management, Order Management, and Bonus Features should be created for clarity.
 
 GitHub Repository: Incomplete

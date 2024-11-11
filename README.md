@@ -2,7 +2,7 @@
 
 The name of this repository is E Commerce API Mini Project, it can be found at [E-Commerce-Repo](https://github.com/Kjones6052/E_Commerce_API_Mini_Project)
 
-The files in this repository were designed and written to ...(description here)
+The files in this repository were designed and written to manage a database of Customers, Customer Accounts, Products, and Orders for a E Commerce Application. A table in the database is created for Customers, Customer Accounts, Products, and Orders. Each table has enpoint routes and methods to add, update, get, or delete. 
 
 Python Virtual Environment created with name 'ecomenv' for the project.
 
