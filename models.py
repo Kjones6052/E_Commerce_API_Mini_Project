@@ -32,6 +32,12 @@ class CustomerAccount(db.Model):
     customer_id = db.Column(db.Integer, db.ForeignKey('Customers.id')) # Creating Customer ID as foreign key column for table
     customer = db.relationship('Customer', backref='customer_account', uselist=False) # Establishing one-to-one relationship to and from Customers table
 
+# Many to Many relationship products/orders
+order_details = db.Table('Order_Details',
+                         db.Column('order_id', db.Integer, db.ForeignKey('Orders.id'), primary_key=True),
+                         db.Column('product_id', db.Integer, db.ForeignKey('Products.id'), primary_key=True)
+                         )
+
 # Order Model (id, date, customer_id)
 class Order(db.Model):
     __tablename__ = "Orders" # Defines table for orders
@@ -39,13 +45,8 @@ class Order(db.Model):
     date = db.Column(db.Date, nullable=False) # Creating date column for table
     customer_id = db.Column(db.Integer, db.ForeignKey('Customers.id')) # Creating customer id as a foreign key column for table
     status = db.Column(db.String(20), nullable=False) # Creating order status column for table
+    products = db.relationship('Product', secondary=order_details, backref=db.backref('orders'))
    
-# Many to Many relationship products/orders
-order_details = db.Table('Order_Details',
-                         db.Column('order_id', db.Integer, db.ForeignKey('Orders.id'), primary_key=True),
-                         db.Column('product_id', db.Integer, db.ForeignKey('Products.id'), primary_key=True)
-                         )
-
 # Product Model (id, name, price)
 class Product(db.Model):
     __tablename__ = "Products"

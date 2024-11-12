@@ -39,7 +39,7 @@ class OrderSchema(ma.Schema):
 
 # Product Schema (id, name, price)
 class ProductSchema(ma.Schema):
-    name = fields.Date(required=True)
+    name = fields.String(required=True)
     price = fields.Float(required=True)
     quantity = fields.Integer(required=True)
 
