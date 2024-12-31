@@ -3,10 +3,11 @@
 # Import
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-
+from flask_cors import CORS
 
 # Instantiating Flask App
 app = Flask(__name__) 
+CORS(app)
 
 # Configure SQLAlchemy to connect to database using connection parameteres
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:7Raffi!Codes7@localhost/e_commerce_db'
