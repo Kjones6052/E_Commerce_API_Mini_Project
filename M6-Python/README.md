@@ -1,7 +1,9 @@
 # **Hello, World**
 
-The name of this folder of the repository is my E Commerce API Mini Project, it can be found at: 
-[E-Commerce-Repo](https://github.com/Kjones6052/E_Commerce_API_Mini_Project)
+Links to project folders:
+[Master Folder](https://github.com/Kjones6052/E_Commerce_API_Mini_Project/tree/master)
+[Python Folder](https://github.com/Kjones6052/E_Commerce_API_Mini_Project/tree/master/M6-Python)
+[React Folder](https://github.com/Kjones6052/E_Commerce_API_Mini_Project/tree/master/M11-React/eCommerceReact)
 
 The files in this repository were designed and written to manage a database of Customers, Customer Accounts, Products, and Orders for a E Commerce Application. A table in the database is created for Customers, Customer Accounts, Products, and Orders. Each table has enpoint routes and methods to add, update, get, or delete. 
 
