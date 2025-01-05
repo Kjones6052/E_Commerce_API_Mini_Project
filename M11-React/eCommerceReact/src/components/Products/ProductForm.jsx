@@ -35,7 +35,6 @@ const ProductForm = () => {
         if (!validateForm()) return;
         setSubmitting(true);
         try {
-            console.log(product)
             await axios.post('http://127.0.0.1:5000/products', product)
             setShowSuccessModal(true);
         } catch (error) {

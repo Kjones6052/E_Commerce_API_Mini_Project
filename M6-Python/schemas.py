@@ -28,7 +28,7 @@ class CustomerAccountSchema(ma.Schema):
     class Meta:
         fields = ("id", "username", "password", "customer_id")
 
-# Order Schema (id, date, customer_id)
+# Order Schema (id, date, customer_id, status)
 class OrderSchema(ma.Schema):
     date = fields.Date(required=True)
     customer_id = fields.Integer(required=True)
@@ -37,7 +37,7 @@ class OrderSchema(ma.Schema):
     class Meta:
         fields = ("id", "date", "customer_id", "status")
 
-# Product Schema (id, name, price)
+# Product Schema (id, name, price, quantity)
 class ProductSchema(ma.Schema):
     name = fields.String(required=True)
     price = fields.Float(required=True)

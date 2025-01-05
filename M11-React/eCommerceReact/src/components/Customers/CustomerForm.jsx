@@ -42,7 +42,6 @@ const CustomerForm = () => {
         if (!validateForm()) return;
         setSubmitting(true);
         try {
-            console.log(customer)
             await axios.post('http://127.0.0.1:5000/customers', customer)
             setShowSuccessModal(true);
         } catch (error) {

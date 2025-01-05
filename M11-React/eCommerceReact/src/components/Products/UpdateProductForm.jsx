@@ -13,7 +13,7 @@ import axios from 'axios';
 const ProductForm = () => {
 
     // Constructing variables for component
-    const [product, setProduct] = useState({ id: '', name: '', price: '' });
+    const [product, setProduct] = useState({ id: '', name: '', price: '', quantity: '' });
     const [errors, setErrors] = useState({});
     const [isSubmitting, setSubmitting] = useState(false);
     const [showSuccessModal, setShowSuccessModal] = useState(false);
@@ -36,6 +36,7 @@ const ProductForm = () => {
         let errors = {};
         if (!product.name) errors.name = 'Product name is required';
         if (!product.price || product.price <= 0) errors.price = 'Price must be a positive number';
+        if (!product.quantity || product.price <= 0) errors.quantity = 'Quantity must be a positive number';
         setErrors(errors);
         return Object.keys(errors).length === 0;
     };
@@ -45,7 +46,7 @@ const ProductForm = () => {
         if (!validateForm()) return;
         setSubmitting(true);
         try {
-            await axios.put(`http://127.0.0.1:5000/products/${id}`, productData);
+            await axios.put(`http://127.0.0.1:5000/products/${id}`, product);
             setShowSuccessModal(true);
         } catch (error) {
             setErrorMessage(error.message);
@@ -64,7 +65,7 @@ const ProductForm = () => {
 
     const handleClose = () => {
         setShowSuccessModal(false);
-        setProduct({ name: '', price: '' });
+        setProduct({ name: '', price: '', quantity: '' });
         setSubmitting(false);
         navigate('/products');
     };
@@ -100,6 +101,19 @@ const ProductForm = () => {
                     />
                     <Form.Control.Feedback type='invalid'>
                         {errors.price}
+                    </Form.Control.Feedback>
+                </Form.Group>
+                <Form.Group constrolId="productQuantity">
+                    <Form.Label>Quantity:</Form.Label>
+                    <Form.Control
+                        type='number'
+                        name='quantity'
+                        value={product.quantity}
+                        onChange={handleChange}
+                        isInvalid={!!errors.quantity}
+                    />
+                    <Form.Control.Feedback type='invalid'>
+                        {errors.quantity}
                     </Form.Control.Feedback>
                 </Form.Group>
                 <Button variant='primary' type='submit' disabled={isSubmitting}>

@@ -25,7 +25,6 @@ def add_customer(): # Method to add new customer
         db.session.commit() # Commit changes to the database
         return jsonify({"message": "New Customer added successfully."}), 201 # Display message to user with type indicator
     except SQLAlchemyError as e: # Handle database-related errors
-        db.session.rollback()  # Rollback the session to maintain consistency
         return jsonify({"error": str(e)}), 500
     except Exception as e: # Catch any other unexpected errors
         return jsonify({"error": str(e)}), 500
@@ -52,7 +51,6 @@ def update_customer(id): # Method to update customer
         db.session.commit() # Commit changes to the database
         return jsonify({"message": "Customer details updated successfully"}), 200 # Display message to user with type indicator
     except SQLAlchemyError as e: # Handle database-related errors
-        db.session.rollback()  # Rollback the session to maintain consistency
         return jsonify({"error": str(e)}), 500
     except Exception as e: # Catch any other unexpected errors
         return jsonify({"error": str(e)}), 500
@@ -82,7 +80,6 @@ def add_customer_account(): # Method to add new customer account
         db.session.commit() # Commit changes to the database
         return jsonify({"message": "New customer account added successfully."}), 201 # Display message to user with type indicator
     except SQLAlchemyError as e: # Handle database-related errors
-        db.session.rollback()  # Rollback the session to maintain consistency
         return jsonify({"error": str(e)}), 500
     except Exception as e: # Catch any other unexpected errors
         return jsonify({"error": str(e)}), 500
@@ -108,7 +105,6 @@ def update_customer_account(id): # Method to update customer account
         db.session.commit() # Commit changes to the database
         return jsonify({"message": "Customer account details updated successfully"}), 200 # Display message to user with type indicator
     except SQLAlchemyError as e: # Handle database-related errors
-        db.session.rollback()  # Rollback the session to maintain consistency
         return jsonify({"error": str(e)}), 500
     except Exception as e: # Catch any other unexpected errors
         return jsonify({"error": str(e)}), 500
@@ -144,7 +140,6 @@ def add_product(): # Method to add new product
         db.session.commit() # Commit changes to the database
         return jsonify({"message": "New product added successfully."}), 201 # Display message to user with type indicator
     except SQLAlchemyError as e: # Handle database-related errors
-        db.session.rollback()  # Rollback the session to maintain consistency
         return jsonify({"error": str(e)}), 500
     except Exception as e: # Catch any other unexpected errors
         return jsonify({"error": str(e)}), 500
@@ -153,7 +148,7 @@ def add_product(): # Method to add new product
 @app.route('/products/<int:id>', methods=['GET']) # Route to get product
 def get_product(id): # Method to update customer
     product = Product.query.get_or_404(id) # Retrieve product by product ID or produce 404 if not found
-    return customer_account_schema.jsonify(product) # Display Product: name, price, quantity
+    return product_schema.jsonify(product) # Display Product: name, price, quantity
 
 # Update Product Route and Method
 @app.route('/products/<int:id>', methods=['PUT']) # Route to UPDATE product
@@ -170,7 +165,6 @@ def update_product(id): # Method to update product
         db.session.commit() # Commit changes to the database
         return jsonify({"message": "Product details updated successfully"}), 200 # Display message to user with type indicator
     except SQLAlchemyError as e: # Handle database-related errors
-        db.session.rollback()  # Rollback the session to maintain consistency
         return jsonify({"error": str(e)}), 500
     except Exception as e: # Catch any other unexpected errors
         return jsonify({"error": str(e)}), 500
@@ -184,7 +178,6 @@ def delete_product(id): # Method to delete product
         db.session.commit() # Commit changes to the database
         return jsonify({"message": "Product removed successfully"}), 200 # Display message to user with type indicator
     except SQLAlchemyError as e: # Handle database-related errors
-        db.session.rollback()  # Rollback the session to maintain consistency
         return jsonify({"error": str(e)}), 500
     except Exception as e: # Catch any other unexpected errors
         return jsonify({"error": str(e)}), 500
@@ -209,7 +202,6 @@ def manage_product_quantity(id): # Method to manage product quantity
         db.session.commit() # Commit changes to the database
         return jsonify({"message": "Product details updated successfully"}), 200 # Display message to user with type indicator
     except SQLAlchemyError as e: # Handle database-related errors
-        db.session.rollback()  # Rollback the session to maintain consistency
         return jsonify({"error": str(e)}), 500
     except Exception as e: # Catch any other unexpected errors
         return jsonify({"error": str(e)}), 500
@@ -229,7 +221,6 @@ def restock_product(id):
             db.session.commit() # Commit changes to the database
             return jsonify({"message": "Product restocked successfully"}), 200
         except SQLAlchemyError as e: # Handle database-related errors
-            db.session.rollback()  # Rollback the session to maintain consistency
             return jsonify({"error": str(e)}), 500
         except Exception as e: # Catch any other unexpected errors
             return jsonify({"error": str(e)}), 500
@@ -246,7 +237,7 @@ def create_order(): # Method to create new order
         return jsonify(err.messages), 400 # Jsonify error with type indicator
     
     # Adding product info into a variable for query execution
-    new_order = Order(id=order_data['id'], date=order_data['date'], customer_id=order_data['customer id'])
+    new_order = Order(date=order_data['date'], customer_id=order_data['customer_id'], status=order_data['status'])
     db.session.add(new_order) # Execute query to add new order
     db.session.commit() # Commit changes to the database
     return jsonify({"message": "New product added successfully."}), 201 # Display message to user with type indicator
@@ -278,14 +269,12 @@ def cancel_order(id): # Method to cancel order
         db.session.commit() # Commit changes to the database
         return jsonify({"message": "Order cancelled successfully"}), 200 # Display message to user with type indicator
     except SQLAlchemyError as e: # Handle database-related errors
-        db.session.rollback()  # Rollback the session to maintain consistency
         return jsonify({"error": str(e)}), 500
     except Exception as e: # Catch any other unexpected errors
         return jsonify({"error": str(e)}), 500
     
-
+with app.app_context():
+        db.create_all()
 # Run App
 if __name__ == '__main__':
-    with app.app_context():
-        db.create_all()
     app.run(debug=True)

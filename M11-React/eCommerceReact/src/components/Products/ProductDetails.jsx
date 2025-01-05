@@ -13,7 +13,7 @@ import axios from 'axios';
 
 // Creating functional component to display product details based on ID
 const ProductDetails = () => {
-    const [product, setProduct] = useState({ name: '', price: '' });
+    const [product, setProduct] = useState({ name: '', price: '', quantity: '' });
     const { id } = useParams();
     const navigate = useNavigate();
 
@@ -28,7 +28,7 @@ const ProductDetails = () => {
                 }) 
                 .catch (error => setErrorMessage(error.message));
         }
-    }, [id]);
+    }, []);
 
     // DELETE product async function
     const deleteProduct = async (id) => {
@@ -48,7 +48,10 @@ const ProductDetails = () => {
             <h3>Product Details</h3>
             <h5>{product.name}</h5>
             <img src="" alt={product.name} />
-            <p><strong>Price: $</strong>{product.price}</p>
+            <p>
+                <strong>Price: $</strong>{product.price}
+                <strong>Quantity Available: </strong>{product.quantity}
+            </p>
             <Button variant='primary' onClick={() => navigate(`/order/${product.id}`)} className='me-2'>Order Product</Button>
             <Button variant='primary' onClick={() => navigate(`/edit-product/${product.id}`)} className='me-2'>Edit Product</Button>
             <Button variant='primary' onClick={() => deleteProduct(product.id)} className='me-2'>Delete Product</Button>

@@ -10,7 +10,7 @@ app = Flask(__name__)
 CORS(app)
 
 # Configure SQLAlchemy to connect to database using connection parameteres
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:7Raffi!Codes7@localhost/e_commerce_db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:7Raffi!Codes7@localhost/e_commerce_db'
 
 db = SQLAlchemy(app) # Gives full access to SQL database functionality
 
@@ -39,14 +39,14 @@ order_details = db.Table('Order_Details',
                          db.Column('product_id', db.Integer, db.ForeignKey('Products.id'), primary_key=True)
                          )
 
-# Order Model (id, date, customer_id)
+# Order Model (id, date, customer_id, status)
 class Order(db.Model):
     __tablename__ = "Orders" # Defines table for orders
     id = db.Column(db.Integer, primary_key=True) # Creating id as the primary key for table
     date = db.Column(db.Date, nullable=False) # Creating date column for table
-    customer_id = db.Column(db.Integer, db.ForeignKey('Customers.id')) # Creating customer id as a foreign key column for table
+    customer_id = db.Column(db.Integer, db.ForeignKey('customer_id')) # Creating customer id as a foreign key column for table
     status = db.Column(db.String(20), nullable=False) # Creating order status column for table
-    products = db.relationship('Product', secondary=order_details, backref=db.backref('orders'))
+    customer = db.relationship('Customer', backref='order')
    
 # Product Model (id, name, price)
 class Product(db.Model):

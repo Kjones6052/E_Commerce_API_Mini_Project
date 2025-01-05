@@ -21,7 +21,7 @@ import { Button, Container, ListGroup, Row, Col } from 'react-bootstrap';
 const ProductList = () => {
 
     // Constructing Variables
-    const [products, setProducts] = useState([]);
+    const [ products, setProducts ] = useState([]);
     const navigate = useNavigate();
 
     // Function to fetch Product Data
@@ -31,7 +31,7 @@ const ProductList = () => {
             setProducts(response.data); // assigning data to component variable
         } catch (error) {
             console.error('Error fetching products:', error); // catch and log errors
-        }
+        } 
     };
 
     // Will run once
@@ -46,13 +46,15 @@ const ProductList = () => {
                 <Col>
                     <h3>Products</h3>
                     <ListGroup>
-                        {products.map(product => {
+                        {products.map((product) => {
+                            return (
                             <ListGroup.Item key={product.id} className='d-flex justify-content-between align-items-center shadow-sm p-3 mb-3 bg-white rounded'>
                                 {product.name} (Price: {product.price})
                                 <div>
                                     <Button variant='primary' onClick={() => navigate(`/view-product/${product.id}`)} className='me-2'>View Product Details</Button>
                                 </div>
                             </ListGroup.Item>
+                            )
                         })}
                     </ListGroup>
                 </Col>
