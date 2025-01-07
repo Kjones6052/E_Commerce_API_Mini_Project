@@ -1,4 +1,4 @@
-// This file is for the Customer Detail component, with function to Delete and Edit Customer
+// This file is for the Customer Detail component
 
 // Import as needed
 import React from 'react';
@@ -10,6 +10,7 @@ import axios from 'axios';
 // Creating functional component to display customer details based on ID
 const CustomerDetails = () => {
     const [customer, setCustomer] = useState({ id: '', name: '', email: '', phone: '' });
+    const [errorMessage, setErrorMessage] = useState(null);
     const { id } = useParams();
     const navigate = useNavigate();
 
@@ -32,15 +33,16 @@ const CustomerDetails = () => {
         // try/catch to catch errors
         try {
             await axios.delete(`http://127.0.0.1:5000/customers/${id}`);
-            navigate('/products')
+            navigate('/')
         } catch (error) {
-            console.error('Error deleting product', error);
+            console.error('Error deleting customer', error);
         }
     };
 
     // Return Display
     return (
         <div className='container'>
+            {errorMessage && <div>Error: {errorMessage}</div>}
             <h3>Customer Details</h3>
             <h5>{customer.name}</h5>
             <p><strong>Email: </strong>{customer.email}</p>

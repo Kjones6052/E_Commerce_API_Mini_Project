@@ -3,16 +3,14 @@
 // Import as needed
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { func, object } from 'prop-types';
 import { Form, Button, Alert, Modal, Spinner } from 'react-bootstrap';
 import axios from 'axios';
-import { format } from 'date-fns';
 
 // Create 'OrderForm' Function Based Component
 const OrderForm = () => {
 
     // Constructing variables for component
-    const [product, setProduct] = useState({ id: '', name: '', price: '' });
+    const [product, setProduct] = useState({ id: '', name: '', price: '', quantity: '' });
     const [order, setOrder] = useState({ date: '', customer_id: '', status: '' });
     const [errors, setErrors] = useState({});
     const [isSubmitting, setSubmitting] = useState(false);
@@ -20,6 +18,8 @@ const OrderForm = () => {
     const [errorMessage, setErrorMessage] = useState('');
     const { id } = useParams();
     const navigate = useNavigate();
+    const date = new Date();
+    const formattedDate = date.toISOString().split('T')[0];
 
     // Wil run as lost as 'ID' is given
     useEffect(() => {
@@ -41,17 +41,14 @@ const OrderForm = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        order.date = "2025-10-05"
-        console.log(order.date)
+        order.date = formattedDate
         order.status = 'Complete'
         if (!validateForm()) return;
         setSubmitting(true);
         try {
             await axios.post('http://127.0.0.1:5000/orders', order)
-            console.log(order)
             setShowSuccessModal(true);
         } catch (error) {
-            console.log(order)
             console.error(error)
             setErrorMessage(error.message);
         } finally {
@@ -84,7 +81,7 @@ const OrderForm = () => {
                 <p>
                     <strong>Product: </strong>{product.name}<br/>
                     <strong>Total: $</strong>{product.price}<br/>
-                    <strong>Date of Sale: </strong>{order.date}
+                    <strong>Date of Sale: </strong>{formattedDate}
                 </p>
                 <Form.Group>
                     <Form.Label>Customer ID:</Form.Label>
@@ -117,12 +114,6 @@ const OrderForm = () => {
         </>
     )
 };
-
-// Validate Property Types
-OrderForm.propTypes = {
-    selectedProduct: object,
-    onProductUpdated: func
-}
 
 // Export
 export default OrderForm;

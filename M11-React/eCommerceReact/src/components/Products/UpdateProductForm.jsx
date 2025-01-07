@@ -1,16 +1,13 @@
 // This file is for the Update Product Form component
 
-// Form to update a Product to the database based on product id
-
 // Import as needed
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { func, object } from 'prop-types';
 import { Form, Button, Alert, Modal, Spinner } from 'react-bootstrap';
 import axios from 'axios';
 
-// Create 'ProductForm' Function Based Component
-const ProductForm = () => {
+// Create 'UpdateProductForm' Function Based Component
+const UpdateProductForm = () => {
 
     // Constructing variables for component
     const [product, setProduct] = useState({ id: '', name: '', price: '', quantity: '' });
@@ -77,7 +74,7 @@ const ProductForm = () => {
             <Form onSubmit={handleSubmit}>
                 <h3>Edit Product</h3>
                 {errorMessage && <Alert variant='danger'>{errorMessage}</Alert>}
-                <Form.Group constrolId="productName">
+                <Form.Group>
                     <Form.Label>Name:</Form.Label>
                     <Form.Control
                         type='text'
@@ -90,10 +87,10 @@ const ProductForm = () => {
                         {errors.name}
                     </Form.Control.Feedback>
                 </Form.Group>
-                <Form.Group constrolId="productPrice">
+                <Form.Group>
                     <Form.Label>Price:</Form.Label>
                     <Form.Control
-                        type='text'
+                        type='number'
                         name='price'
                         value={product.price}
                         onChange={handleChange}
@@ -103,7 +100,7 @@ const ProductForm = () => {
                         {errors.price}
                     </Form.Control.Feedback>
                 </Form.Group>
-                <Form.Group constrolId="productQuantity">
+                <Form.Group>
                     <Form.Label>Quantity:</Form.Label>
                     <Form.Control
                         type='number'
@@ -135,11 +132,5 @@ const ProductForm = () => {
     )
 };
 
-// Validate Property Types
-ProductForm.propTypes = {
-    selectedProduct: object,
-    onProductUpdated: func
-}
-
 // Export
-export default ProductForm;
+export default UpdateProductForm;

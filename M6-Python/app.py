@@ -5,7 +5,7 @@ from flask import jsonify, request
 from sqlalchemy.exc import SQLAlchemyError
 from marshmallow import ValidationError
 from models import Customer, CustomerAccount, Order,  Product, app, db
-from schemas import customer_schema, customer_account_schema, order_schema, product_schema, products_schema
+from schemas import customer_schema, customers_schema, customer_account_schema, customer_accounts_schema, order_schema, product_schema, products_schema
 
 
 
@@ -28,6 +28,12 @@ def add_customer(): # Method to add new customer
         return jsonify({"error": str(e)}), 500
     except Exception as e: # Catch any other unexpected errors
         return jsonify({"error": str(e)}), 500
+    
+# List Customers Route and Method
+@app.route('/customers', methods=['GET']) # Route to get all customers
+def get_customers(): # Method to get all customers
+    customers = Customer.query.all() # Retrieve all customers and their info
+    return customers_schema.jsonify(customers)
 
 # Get Customer Route and Method
 @app.route('/customers/<int:id>', methods=['GET']) # Route to get customer
@@ -83,10 +89,16 @@ def add_customer_account(): # Method to add new customer account
         return jsonify({"error": str(e)}), 500
     except Exception as e: # Catch any other unexpected errors
         return jsonify({"error": str(e)}), 500
+    
+# List Customer Accounts Route and Method
+@app.route('/customer_accounts', methods=['GET']) # Route to get all customer accounts
+def get_customer_accounts(): # Method to get all customer accounts
+    customer_accounts = CustomerAccount.query.all() # Retrieve all customer accounts and their info
+    return customer_accounts_schema.jsonify(customer_accounts)
 
 # Get Customer Account Route and Method
 @app.route('/customer_accounts/<int:id>', methods=['GET']) # Route to get customer account
-def get_customer_account(id): # Method to update customer
+def get_customer_account(id): # Method to get customer account
     customer_account = CustomerAccount.query.get_or_404(id) # Retrieve customer account by account ID or produce 404 if not found
     return customer_account_schema.jsonify(customer_account)
 
@@ -237,10 +249,10 @@ def create_order(): # Method to create new order
         return jsonify(err.messages), 400 # Jsonify error with type indicator
     
     # Adding product info into a variable for query execution
-    new_order = Order(date=order_data['date'], customer_id=order_data['customer_id'], status=order_data['status'])
-    db.session.add(new_order) # Execute query to add new order
+    order = Order(date=order_data['date'], customer_id=order_data['customer_id'], status=order_data['status'])
+    db.session.add(order) # Execute query to add new order
     db.session.commit() # Commit changes to the database
-    return jsonify({"message": "New product added successfully."}), 201 # Display message to user with type indicator
+    return jsonify({"message": "New Order created successfully."}), 201 # Display message to user with type indicator
 
 # Get Order Route and Method
 @app.route('/orders/<int:id>', methods=['GET']) # Route to get order

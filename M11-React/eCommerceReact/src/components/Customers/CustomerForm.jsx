@@ -1,20 +1,8 @@
 // This file is for the Customer Form component
 
-// Form to create New Customer and add to database
-
-/*
-    Customer Model:                             CustomerAccount Model:   
-    ID: primary/auto                            ID: primary/auto
-    Name: required                              Username: required/unique
-    Email: optional                             Password: required
-    Phone: optional                             CustomerId: required for relationship
-    Orders: relationship orders -> customer     Customer: relationship customer -> customerAccount
-*/
-
 // Import as needed
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { func, object } from 'prop-types';
 import { Form, Button, Alert, Modal, Spinner } from 'react-bootstrap';
 import axios from 'axios';
 
@@ -71,7 +59,7 @@ const CustomerForm = () => {
     return (
         <>
             <Form onSubmit={handleSubmit}>
-                <h3>Add Customer</h3>
+                <h3>New Customer</h3>
                 {errorMessage && <Alert variant='danger'>{errorMessage}</Alert>}
                 <Form.Group constrolId="customerName">
                     <Form.Label>Name:</Form.Label>
@@ -130,12 +118,6 @@ const CustomerForm = () => {
         </>
     )
 };
-
-// Validate Property Types
-CustomerForm.propTypes = {
-    selectedProduct: object,
-    onProductUpdated: func
-}
 
 // Export
 export default CustomerForm;

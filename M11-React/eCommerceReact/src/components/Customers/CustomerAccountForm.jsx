@@ -1,19 +1,16 @@
 // This file is for the Update Customer Account Form component
 
-// Form to update Customer Account Details: username and email
-
 // Import as needed
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { func, object } from 'prop-types';
 import { Form, Button, Alert, Modal, Spinner } from 'react-bootstrap';
 import axios from 'axios';
 
-// Create 'UpdatedCustomerForm' Function Based Component
+// Create 'CustomerAccountForm' Function Based Component
 const CustomerAccountForm = () => {
 
     // Constructing variables for component
-    const [customerAccount, setCustomerAccount] = useState({ username: '', email: '', password: '', customerId: '' });
+    const [customerAccount, setCustomerAccount] = useState({ username: '', password: '', customerId: '' });
     const [errors, setErrors] = useState({});
     const [isSubmitting, setSubmitting] = useState(false);
     const [showSuccessModal, setShowSuccessModal] = useState(false);
@@ -23,7 +20,6 @@ const CustomerAccountForm = () => {
     const validateForm = () => {
         let errors = {};
         if (!customerAccount.username) errors.name = 'Customer account username is required';
-        if (!customerAccount.email) errors.email = 'Customer account email is required';
         if (!customerAccount.password) errors.password = 'Customer account password is required';
         if (!customerAccount.customerId) errors.customerId = 'Customer ID is required';
         setErrors(errors);
@@ -54,7 +50,7 @@ const CustomerAccountForm = () => {
 
     const handleClose = () => {
         setShowSuccessModal(false);
-        setCustomerAccount({ username: '', email: '', password: '', customerId: '' });
+        setCustomerAccount({ username: '', password: '', customerId: '' });
         setSubmitting(false);
         navigate(`/`);
     };
@@ -64,40 +60,27 @@ const CustomerAccountForm = () => {
     return (
         <>
             <Form onSubmit={handleSubmit}>
-                <h3>Create Customer Account</h3>
+                <h3>New Customer Account</h3>
                 {errorMessage && <Alert variant='danger'>{errorMessage}</Alert>}
-                <Form.Group constrolId="customerName">
+                <Form.Group>
                     <Form.Label>Username:</Form.Label>
                     <Form.Control
                         type='text'
-                        name='name'
-                        value={customer.name}
+                        name='username'
+                        value={customerAccount.username}
                         onChange={handleChange}
-                        isInvalid={!!errors.name}
+                        isInvalid={!!errors.username}
                     />
                     <Form.Control.Feedback type='invalid'>
-                        {errors.name}
+                        {errors.username}
                     </Form.Control.Feedback>
                 </Form.Group>
-                <Form.Group constrolId="customerEmail">
-                    <Form.Label>Email Address:</Form.Label>
-                    <Form.Control
-                        type='text'
-                        name='email'
-                        value={customer.email}
-                        onChange={handleChange}
-                        isInvalid={!!errors.email}
-                    />
-                    <Form.Control.Feedback type='invalid'>
-                        {errors.email}
-                    </Form.Control.Feedback>
-                </Form.Group>
-                <Form.Group constrolId="customerPhone">
+                <Form.Group>
                     <Form.Label>Password:</Form.Label>
                     <Form.Control
                         type='password'
                         name='password'
-                        value={customer.phone}
+                        value={customerAccount.password}
                         onChange={handleChange}
                         isInvalid={!!errors.password}
                     />
@@ -105,12 +88,12 @@ const CustomerAccountForm = () => {
                         {errors.password}
                     </Form.Control.Feedback>
                 </Form.Group>
-                <Form.Group constrolId="customerPhone">
+                <Form.Group>
                     <Form.Label>Customer ID:</Form.Label>
                     <Form.Control
                         type='number'
                         name='customerId'
-                        value={customer.phone}
+                        value={customerAccount.customerId}
                         onChange={handleChange}
                         isInvalid={!!errors.customerId}
                     />
@@ -136,12 +119,6 @@ const CustomerAccountForm = () => {
         </>
     )
 };
-
-// Validate Property Types
-CustomerAccountForm.propTypes = {
-    selectedProduct: object,
-    onProductUpdated: func
-}
 
 // Export
 export default CustomerAccountForm;

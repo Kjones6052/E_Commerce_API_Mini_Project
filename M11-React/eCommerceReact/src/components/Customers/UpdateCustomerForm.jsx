@@ -1,11 +1,8 @@
 // This file is for the Update Customer Form component
 
-// Form to update Customer Details: name, email, and phone
-
 // Import as needed
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { func, object } from 'prop-types';
 import { Form, Button, Alert, Modal, Spinner } from 'react-bootstrap';
 import axios from 'axios';
 
@@ -24,7 +21,7 @@ const UpdatedCustomerForm = () => {
     // Creat Methods
     useEffect(() => {
         if (id) { // if ID run code
-            axios.get(`http://127.0.0.1:5000/customers/${id}`) // GET product data by id
+            axios.get(`http://127.0.0.1:5000/customers/${id}`) // GET customer data by id
                 .then(response => {
                     setCustomer(response.data); // Assign data to variable
                 }) 
@@ -75,7 +72,7 @@ const UpdatedCustomerForm = () => {
             <Form onSubmit={handleSubmit}>
                 <h3>Update Customer</h3>
                 {errorMessage && <Alert variant='danger'>{errorMessage}</Alert>}
-                <Form.Group constrolId="customerName">
+                <Form.Group>
                     <Form.Label>Name:</Form.Label>
                     <Form.Control
                         type='text'
@@ -88,7 +85,7 @@ const UpdatedCustomerForm = () => {
                         {errors.name}
                     </Form.Control.Feedback>
                 </Form.Group>
-                <Form.Group constrolId="customerEmail">
+                <Form.Group>
                     <Form.Label>Email Address:</Form.Label>
                     <Form.Control
                         type='text'
@@ -101,7 +98,7 @@ const UpdatedCustomerForm = () => {
                         {errors.email}
                     </Form.Control.Feedback>
                 </Form.Group>
-                <Form.Group constrolId="customerPhone">
+                <Form.Group>
                     <Form.Label>Phone Number:</Form.Label>
                     <Form.Control
                         type='tel'
@@ -132,12 +129,6 @@ const UpdatedCustomerForm = () => {
         </>
     )
 };
-
-// Validate Property Types
-UpdatedCustomerForm.propTypes = {
-    selectedProduct: object,
-    onProductUpdated: func
-}
 
 // Export
 export default UpdatedCustomerForm;

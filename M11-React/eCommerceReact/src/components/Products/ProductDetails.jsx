@@ -1,8 +1,4 @@
-// This file is for the Product Details component, including a function to Delete and Edit Product
-
-// Display all Product Details based on ID: name, price, quantity
-// Button to delete product from database
-// Button to edit product
+// This file is for the Product Details component
 
 // Import as needed
 import React from 'react';
@@ -13,7 +9,7 @@ import axios from 'axios';
 
 // Creating functional component to display product details based on ID
 const ProductDetails = () => {
-    const [product, setProduct] = useState({ name: '', price: '', quantity: '' });
+    const [product, setProduct] = useState({ id: '', name: '', price: '', quantity: '' });
     const { id } = useParams();
     const navigate = useNavigate();
 

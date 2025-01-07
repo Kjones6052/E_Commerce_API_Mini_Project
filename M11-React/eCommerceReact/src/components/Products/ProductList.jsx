@@ -1,15 +1,5 @@
 // This file is for the Product List component
 
-// Display list of all available products in the database: name, price, button to view details
-
-/*
-    Product Model:
-    ID: primary/auto
-    Name: required
-    Price: required
-    Orders: relationship order / orderDetails -> products
-*/
-
 // Import as needed
 import axios from 'axios';
 import { array, func } from 'prop-types';

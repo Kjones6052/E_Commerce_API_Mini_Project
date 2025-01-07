@@ -47,8 +47,9 @@ class ProductSchema(ma.Schema):
         fields = ("id", "name", "price", "quantity")
 
 customer_schema = CustomerSchema()
+customers_schema = CustomerSchema(many=True)
 customer_account_schema = CustomerAccountSchema()
-
+customer_accounts_schema = CustomerAccountSchema(many=True)
 order_schema = OrderSchema()
 orders_schema = OrderSchema(many=True)
 product_schema = ProductSchema()

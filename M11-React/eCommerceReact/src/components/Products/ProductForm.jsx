@@ -1,7 +1,5 @@
 // This file is for the Product Form component
 
-// Form to add a Product to the database
-
 // Import as needed
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -54,7 +52,7 @@ const ProductForm = () => {
 
     const handleClose = () => {
         setShowSuccessModal(false);
-        setProduct({ name: '', price: '' });
+        setProduct({ name: '', price: '', quantity: '' });
         setSubmitting(false);
         navigate('/products');
     };
@@ -66,7 +64,7 @@ const ProductForm = () => {
             <Form onSubmit={handleSubmit}>
                 <h3>Add Product</h3>
                 {errorMessage && <Alert variant='danger'>{errorMessage}</Alert>}
-                <Form.Group constrolId="productName">
+                <Form.Group>
                     <Form.Label>Name:</Form.Label>
                     <Form.Control
                         type='text'
@@ -79,10 +77,10 @@ const ProductForm = () => {
                         {errors.name}
                     </Form.Control.Feedback>
                 </Form.Group>
-                <Form.Group constrolId="productPrice">
+                <Form.Group>
                     <Form.Label>Price:</Form.Label>
                     <Form.Control
-                        type='text'
+                        type='number'
                         name='price'
                         value={product.price}
                         onChange={handleChange}
@@ -92,7 +90,7 @@ const ProductForm = () => {
                         {errors.price}
                     </Form.Control.Feedback>
                 </Form.Group>
-                <Form.Group constrolId="productQuantity">
+                <Form.Group>
                     <Form.Label>Quantity:</Form.Label>
                     <Form.Control
                         type='number'

@@ -22,7 +22,7 @@ class Customer(db.Model):
     name = db.Column(db.String(255), nullable=False) # Creating name column for table
     email = db.Column(db.String(320)) # Creating email column for table
     phone = db.Column(db.String(15)) # Creating phone column for table
-    orders = db.relationship('Order', backref='customer') # Establishing relationship between Customer and Order
+    # orders = db.relationship('Order', backref='customer', lazy=True) # Establishing relationship between Customer and Order
 
 # CustomerAccount Model (id, username, password, customer_id)
 class CustomerAccount(db.Model):
@@ -35,8 +35,8 @@ class CustomerAccount(db.Model):
 
 # Many to Many relationship products/orders
 order_details = db.Table('Order_Details',
-                         db.Column('order_id', db.Integer, db.ForeignKey('Orders.id'), primary_key=True),
-                         db.Column('product_id', db.Integer, db.ForeignKey('Products.id'), primary_key=True)
+                         db.Column('order_id', db.ForeignKey('Orders.id'), primary_key=True),
+                         db.Column('product_id', db.ForeignKey('Products.id'), primary_key=True)
                          )
 
 # Order Model (id, date, customer_id, status)
@@ -44,10 +44,10 @@ class Order(db.Model):
     __tablename__ = "Orders" # Defines table for orders
     id = db.Column(db.Integer, primary_key=True) # Creating id as the primary key for table
     date = db.Column(db.Date, nullable=False) # Creating date column for table
-    customer_id = db.Column(db.Integer, db.ForeignKey('customer_id')) # Creating customer id as a foreign key column for table
+    customer_id = db.Column(db.Integer, db.ForeignKey('Customers.id')) # Creating customer id as a foreign key column for table
     status = db.Column(db.String(20), nullable=False) # Creating order status column for table
-    customer = db.relationship('Customer', backref='order')
-   
+    customer = db.relationship('Customer', backref='orders')
+
 # Product Model (id, name, price)
 class Product(db.Model):
     __tablename__ = "Products"
@@ -55,6 +55,6 @@ class Product(db.Model):
     name = db.Column(db.String(255), nullable=False) # Creating name column for table
     price = db.Column(db.Float, nullable=False) # Creating price column for table
     quantity = db.Column(db.Integer, nullable=False) # Creating quantity column for table
-    orders = db.relationship('Order', secondary=order_details, backref=db.backref('products')) # Creating relationship between Products and Order
+    orders = db.relationship('Order', secondary=order_details, backref='products') # Creating relationship between Products and Order
     
 

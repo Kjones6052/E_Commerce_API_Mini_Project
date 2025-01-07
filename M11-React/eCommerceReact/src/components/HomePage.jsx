@@ -9,22 +9,13 @@ function HomePage() {
     const navigate = useNavigate();
     return (
         <div className="text-center">
-            <h1>Welcome to Buy Stuff</h1>
-            <p>Please use the menu below or the navigation bar above.</p>
-            <Row>
-                <Col>
-                    <Button variant='primary' onClick={() => navigate('/sign-up')}>
-                        User Sign Up
-                    </Button>
-                    <p>New user? Sign up for a new user account here!</p>
-                </Col>
-                <Col>
-                    <Button variant='primary' onClick={() => navigate('/products')}>
-                        View Product Catalog
-                    </Button>
-                    <p>View the complete product catalog.</p>
-                </Col>
-            </Row>
+            <h1>Welcome to Buy Stuff Co</h1>
+            <p>
+                Hello and welcome to Buy Stuff, where you can buy stuff! Please use the navigation bar above to navigate our application.
+
+                Where To:
+                 
+            </p>
         </div>
         
     )
